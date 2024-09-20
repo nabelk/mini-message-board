@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Message Board</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+  </head>
+  <style>
+    body > section > div > article > footer > div > p > span:nth-child(1) {
+      background-color: aquamarine;
+      font-weight: bolder;
+    }
+
+    section {
+      height: 95vh;
+    }
+  </style>
+  <body>
+    <%- include('header') %>
+
+    <section class="bg-gray-200 dark:bg-gray-900 py-8 lg:py-16 antialiased">
+      <div class="max-w-2xl mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+          <h2
+            class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white"
+          >
+            Messages (<%= messages.length %>)
+          </h2>
+        </div>
+
+        <% messages.forEach((message,idx) => { %>
+        <article class="p-6 text-base rounded-lg mb-3">
+          <footer class="flex justify-between items-center mb-3">
+            <div class="flex items-center">
+              <p
+                class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"
+              >
+                <span
+                  class="mr-2 w-8 h-8 rounded-full flex justify-center items-center"
+                >
+                  <%= message.user ? message.user.charAt(0).toUpperCase() : "A"
+                  %>
+                </span>
+
+                <span><%= message.user || "anonymous" %></span>
+              </p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                <%= message.added %>
+              </p>
+            </div>
+            <a href="/message/<%= idx %>">Open</a>
+          </footer>
+          <p class="text-gray-500 dark:text-gray-400 ml-3 pl-2">
+            <%= message.text %>
+          </p>
+        </article>
+        <% }) %>
+      </div>
+    </section>
+  </body>
+</html>
