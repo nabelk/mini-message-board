@@ -12,6 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRouter);
 app.use("/new", newMessageRouter);
 app.use("/message", messageRouter);
+app.get("*", (req, res) => {
+  res.render("error");
+});
 
 const PORT = 3000;
 app.listen(PORT);
