@@ -17,10 +17,22 @@
     }
 
     section {
-      height: 95vh;
+      height: 100%;
+    }
+
+    body,
+    html {
+      position: relative;
+    }
+
+    body > footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
     }
   </style>
-  <body>
+  <body class="bg-gray-200 dark:bg-gray-900">
     <%- include('header') %>
 
     <section class="bg-gray-200 dark:bg-gray-900 py-8 lg:py-16 antialiased">
@@ -62,5 +74,6 @@
         <% }) %>
       </div>
     </section>
+    <%- include('footer') %>
   </body>
 </html>
