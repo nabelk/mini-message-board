@@ -23,12 +23,19 @@ console.log(NODE_ENV);
 async function main() {
   console.log("seeding...");
 
-  const client = new Client({
-    connectionString: process.argv[2],
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
+  const clientParam =
+    NODE_ENV === "development"
+      ? {
+          connectionString: `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+        }
+      : {
+          connectionString: process.argv[2],
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        };
+
+  const client = new Client(clientParam);
   await client.connect();
   await client.query(SQL);
   await client.end();
