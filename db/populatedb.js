@@ -18,22 +18,19 @@ VALUES
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT, NODE_ENV } =
   process.env;
 
-console.log(NODE_ENV);
-
 async function main() {
   console.log("seeding...");
 
-  const clientParam =
-    NODE_ENV === "development"
-      ? {
-          connectionString: `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-        }
-      : {
-          connectionString: process.argv[2],
-          ssl: {
-            rejectUnauthorized: false,
-          },
-        };
+  const clientParam = !process.argv[2]
+    ? {
+        connectionString: `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+      }
+    : {
+        connectionString: process.argv[2],
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      };
 
   const client = new Client(clientParam);
   await client.connect();
