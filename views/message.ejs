@@ -43,11 +43,11 @@
                 <span
                   class="mr-2 w-8 h-8 rounded-full flex justify-center items-center"
                 >
-                  <%= message.user ? message.user.charAt(0).toUpperCase() : "A"
-                  %>
+                  <%= message.username ?
+                  message.username.charAt(0).toUpperCase() : "A" %>
                 </span>
 
-                <span><%= message.user || "anonymous" %></span>
+                <span><%= message.username || "anonymous" %></span>
               </p>
               <p class="text-sm text-gray-600 dark:text-gray-400">
                 <%= message.added %>

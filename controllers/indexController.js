@@ -1,4 +1,5 @@
-const messages = require("../models/messages");
+// const messages = require("../models/messages");
+const db = require("../db/queries");
 
 const formatDate = (date) => {
   const options = { year: "numeric", month: "short", day: "numeric" };
@@ -12,7 +13,8 @@ const formatDate = (date) => {
   return `${formattedDate} ${formattedTime}`;
 };
 
-const showMessages = (req, res) => {
+const showMessages = async (req, res) => {
+  const messages = await db.getAllMessages();
   const formattedMessages = messages.map((message) => {
     return { ...message, added: formatDate(message.added) };
   });

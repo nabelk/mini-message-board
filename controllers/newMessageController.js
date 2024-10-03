@@ -1,22 +1,23 @@
-const messages = require("../models/messages");
+// const messages = require("../models/messages");
+const db = require("../db/queries");
 const validator = require("validator");
 
 const showForm = (req, res) => {
   res.render("form");
 };
 
-const sendForm = (req, res) => {
+const sendForm = async (req, res) => {
   const [sanitizedAuthor, sanitizedMessage] = [
     validator.escape(req.body.author.trim()),
     validator.escape(req.body.message.trim()),
   ];
 
-  messages.unshift({
-    text: sanitizedMessage,
-    user: sanitizedAuthor,
-    added: new Date(),
-  });
-  console.table(messages);
+  const addNewMessage = await db.insertMessages(
+    sanitizedMessage,
+    sanitizedAuthor,
+    new Date()
+  );
+
   res.redirect("/");
 };
 

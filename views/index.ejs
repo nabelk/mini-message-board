@@ -45,7 +45,7 @@
           </h2>
         </div>
 
-        <% messages.forEach((message,idx) => { %>
+        <% messages.findLast((message,idx) => { %>
         <article class="p-6 text-base rounded-lg mb-3">
           <footer class="flex justify-between items-center mb-3">
             <div class="flex items-center">
@@ -55,17 +55,17 @@
                 <span
                   class="mr-2 w-8 h-8 rounded-full flex justify-center items-center"
                 >
-                  <%= message.user ? message.user.charAt(0).toUpperCase() : "A"
-                  %>
+                  <%= message.username ?
+                  message.username.charAt(0).toUpperCase() : "A" %>
                 </span>
 
-                <span><%= message.user || "anonymous" %></span>
+                <span><%= message.username || "anonymous" %></span>
               </p>
               <p class="text-sm text-gray-600 dark:text-gray-400">
                 <%= message.added %>
               </p>
             </div>
-            <a href="/message/<%= idx %>" target="_blank">Open</a>
+            <a href="/message/<%= message.id %>" target="_blank">Open</a>
           </footer>
           <p class="text-gray-500 dark:text-gray-400 ml-3 pl-2">
             <%= message.text %>
