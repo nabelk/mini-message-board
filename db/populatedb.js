@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { Client } = require("pg");
 
-const SQL = ` 
+const SQL = `
 CREATE TABLE IF NOT EXISTS messages (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   text VARCHAR(255),
@@ -15,13 +15,32 @@ VALUES
 ('Hi There', 'Dian');
 `;
 
-const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT } = process.env;
+const {
+  DB_USER,
+  DB_PASSWORD,
+  DB_NAME,
+  DB_HOST,
+  DB_PORT,
+  NODE_ENV,
+  DATABASE_URL,
+} = process.env;
 
 async function main() {
   console.log("seeding...");
-  const client = new Client({
-    connectionString: `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-  });
+
+  const clientParam =
+    NODE_ENV === "production"
+      ? {
+          connectionString: DATABASE_URL,
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        }
+      : {
+          connectionString: `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+        };
+
+  const client = new Client(clientParam);
   await client.connect();
   await client.query(SQL);
   await client.end();
