@@ -18,6 +18,8 @@ VALUES
 const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT, NODE_ENV } =
   process.env;
 
+console.log(NODE_ENV);
+
 async function main() {
   console.log("seeding...");
 

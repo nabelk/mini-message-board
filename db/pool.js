@@ -12,7 +12,7 @@ const {
   DB_PASSWORD,
   DB_PORT,
 } = process.env;
-
+console.log(NODE_ENV);
 if (NODE_ENV === "production") {
   pool = new Pool({
     connectionString: DATABASE_URL,
