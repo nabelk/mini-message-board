@@ -21,19 +21,12 @@ const { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT, NODE_ENV } =
 async function main() {
   console.log("seeding...");
 
-  const clientParam =
-    NODE_ENV === "production"
-      ? {
-          connectionString: process.argv[2],
-          ssl: {
-            rejectUnauthorized: false,
-          },
-        }
-      : {
-          connectionString: `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-        };
-
-  const client = new Client(clientParam);
+  const client = new Client({
+    connectionString: process.argv[2],
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  });
   await client.connect();
   await client.query(SQL);
   await client.end();
