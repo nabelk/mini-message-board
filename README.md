@@ -6,13 +6,14 @@
 - This project is a simple message board, allowing users to post and view messages
 - Displays a list of messages
 - Users can submit new messages using a form
-- Stores messages in-memory
+- Stores messages in a PostgreSQL database
 
 ## Tech Stack
 
 - Node.js: JavaScript runtime for server-side logic.
 - Express.js: Web framework for handling routes and requests.
 - EJS: Embedded JavaScript templating for rendering dynamic HTML pages.
+- PostgreSQL: Relational database used for storing messages.
 
 ## Routes
 
@@ -24,10 +25,15 @@
 ## File structure
 
 - `controllers/`: Handles different parts of the message board (index, message details, new message).
+- `db/`: Database connection configuration, populate and query logic.
 - `models/`: In-memory message data.
 - `routes/`: Manages all routes (index, message details, new message).
 - `views/`: EJS templates for rendering pages.
 - `app.js`: Main server file.
+
+## Deployment
+
+- Hosted on Railway (db & server)
 
 ## Contact
 
